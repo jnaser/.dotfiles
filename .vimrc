@@ -10,14 +10,11 @@ call plug#begin()
         Plug 'flazz/vim-colorschemes'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
-        Plug 'lervag/vimtex'
-	Plug 'xuhdev/vim-latex-live-preview'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-markdown'
 	Plug 'vimwiki/vimwiki'
 	Plug 'suan/vim-instant-markdown'
-
-
+	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 
 "Vim Plug end
@@ -36,6 +33,9 @@ let g:instant_markdown_autostart = 0
 "Set viewer for Latex live preview
 let g:livepreview_previewer = 'open -a "PDF Expert"'
 
+"Set engine for Latex live preview
+let g:livepreview_engine = 'xelatex'
+
 "Updatetime for Latex live preview
 autocmd Filetype tex setl updatetime=1
 
@@ -46,6 +46,14 @@ let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
 colorscheme bubblegum-256-light
 set bg=light	
+
+" Vimiki
+let g:vimwiki_list = [{'path': '~/Dropbox/wiki'}] " set path to Documents to sync with iCloud 
+let g:vimwiki_ext = '.md' " set extension to .md
+let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
+let mapleader=","
+set nocompatible
+filetype plugin on
 
 " Toggle Nerdtree
 noremap <C-D> :NERDTreeToggle<CR>
@@ -64,9 +72,11 @@ let mapleader = ","
 
 "Remove Highlighting from last search by binding nohl to crtl(<c->) + n (<c-n>)
 " ``<C>`` stands for ``CTRL`` and therefore ``<C-n>`` stands for ``CTRL+n``
-noremap <C-n> :nohl<CR>
-vnoremap <C-n> :nohl<CR>
+noremap <C-n> :nohl<CR> vnoremap <C-n> :nohl<CR>
 inoremap <C-n> :nohl<CR>
+
+"Use CTRL + c to yank to clipboard
+vnoremap <C-c> "+y
 
 "Quick save
 noremap <C-W> :update<CR>
