@@ -85,7 +85,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 # #Aliases
+# Github
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+#Shortcuts for folders and configs
 alias docs=/Users/jakob/Documents
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
