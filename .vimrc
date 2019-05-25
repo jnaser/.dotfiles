@@ -1,6 +1,7 @@
 "jnaser .vimrc
+"github.com/jnaser
 
-" Automatic reloading of .vimrc
+"Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
 
 "Vim Plug start
@@ -15,12 +16,56 @@ call plug#begin()
 	Plug 'vimwiki/vimwiki'
 	Plug 'suan/vim-instant-markdown'
 	Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-
+	Plug 'lervag/vimtex'
+	Plug 'vim-syntastic/syntastic'
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+	Plug 'Valloric/YouCompleteMe'
+	Plug 'ervandew/supertab'
+	Plug 'junegunn/goyo.vim'
 
 "Vim Plug end
 call plug#end()
 
-"Powerline settings
+"=================Settings for Synctastic========================
+"================================================================
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"Do not show the following error messages
+let g:syntastic_quiet_messages = { "regex": [
+        \ '\mpossible unwanted space at "{"',
+        \ 'You should enclose the previous parenthesis with `{}',
+	\'Wrong length of dash may have been used',
+        \ ] }
+"=================Settings for Ultisnips=========================
+"================================================================
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "kj"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+"let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
+
+"=================Settings for YouCompleteMe=====================
+"================================================================
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+
+
+"==============Powerline settings===============================
 let g:airline_theme='sol'
 set encoding=utf-8
 
@@ -30,14 +75,26 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 "Vim instant markdown settings
 let g:instant_markdown_autostart = 0
 
-"Set viewer for Latex live preview
+
+"============Latex Live Preview=================================
+"Set viewer for Latex Live Preview
 let g:livepreview_previewer = 'open -a "PDF Expert"'
 
-"Set engine for Latex live preview
-let g:livepreview_engine = 'xelatex'
+"Set engine for Latex Live Preview
+let g:livepreview_engine = 'pdflatex'
 
-"Updatetime for Latex live preview
+"Updatetime for Latex Live Preview
 autocmd Filetype tex setl updatetime=1
+
+"Prevent recompilation on cursor hold
+let g:livepreview_cursorhold_recompile = 0
+
+"==========================Goyo=================================
+noremap <C-G> :Goyo<CR>
+vnoremap <C-G> :Goyo<CR>
+inoremap <C-G> :Goyo<CR>
+
+
 
 "Color scheme
 set t_Co=256
@@ -47,14 +104,14 @@ let &t_AF="\e[38;5;%dm"
 colorscheme bubblegum-256-light
 set bg=light	
 
-" Vimiki
+"===Vimiki===
 let g:vimwiki_list = [{'path': '~/Dropbox/wiki'}] " set path to Documents to sync with iCloud 
 let g:vimwiki_ext = '.md' " set extension to .md
 let g:vimwiki_global_ext = 0 " make sure vimwiki doesn't own all .md files
-let mapleader=","
 set nocompatible
 filetype plugin on
 
+"===Nerdtree
 " Toggle Nerdtree
 noremap <C-D> :NERDTreeToggle<CR>
 vnoremap <C-D> :NERDTreeToggle<CR>
@@ -96,6 +153,7 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+"===Tabs===
 " easier moving between tabs
 map <Leader>n <esc>:tabprevious<CR>
 map <Leader>m <esc>:tabnext<CR>
@@ -106,6 +164,7 @@ map <C-x> :tabclose<CR>
 
 "Sort in Visual Mode
 vnoremap <Leader>s :sort<CR>
+
 
 "Move Blocks of Text in Visual Mode. Select Text and press > to move Text to the left or use < to move text to the right
 vnoremap < <gv 
@@ -125,12 +184,14 @@ set linebreak
 "Toggle line number
 map <Leader>ln :set number!<CR> "! makes it possible to toggle a command
 
-"Set interactive bash as the default vim shell 
-set shell=bash\ -i
+"Set interactive bash as the default vim shell
+"Is needed vor Instantmarkdownpreview 
+"set shell=bash\ -i
 
 "Disable Backup Files
 "set no backup 
 "set nowritebackup
 "set noswapfile
 
+let g:tex_flavor = "latex"
 
