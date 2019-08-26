@@ -44,6 +44,7 @@ let g:syntastic_quiet_messages = { "regex": [
         \ '\mpossible unwanted space at "{"',
         \ 'You should enclose the previous parenthesis with `{}',
 	\'Wrong length of dash may have been used',
+	\'No italic correction',
         \ ] }
 "=================Settings for Ultisnips=========================
 "================================================================
